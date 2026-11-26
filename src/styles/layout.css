@@ -1,0 +1,269 @@
+/* ---------- 배경 장면 ---------- */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 65%);
+  pointer-events: none;
+}
+
+.sun {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  width: clamp(120px, 22vw, 260px);
+  aspect-ratio: 1;
+  margin-left: calc(clamp(120px, 22vw, 260px) / -2);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff3c4 0%, #ffd166 55%, rgb(255 209 102 / 0) 72%);
+}
+
+.cloud {
+  position: absolute;
+  left: 0;
+  width: 140px;
+  height: 40px;
+  border-radius: 40px;
+  background: rgb(255 255 255 / 0.75);
+}
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: inherit;
+}
+.cloud::before { width: 60px; height: 60px; top: -30px; left: 22px; }
+.cloud::after  { width: 44px; height: 44px; top: -20px; left: 70px; }
+.cloud-1 { top: 12%; }
+.cloud-2 { top: 26%; transform: scale(0.7); }
+
+.mountains {
+  position: absolute;
+  left: 0;
+  bottom: 22%;
+  width: 100%;
+  height: 32%;
+}
+
+.jungle {
+  position: absolute;
+  bottom: 14%;
+  width: clamp(120px, 20vw, 260px);
+  height: auto;
+  overflow: visible;
+}
+.jungle-left  { left: -2%; }
+.jungle-right { right: -2%; }
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24%;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, var(--jungle-light), transparent 70%),
+    linear-gradient(180deg, var(--jungle-mid), var(--jungle-dark));
+}
+
+/* ---------- 레이아웃 ---------- */
+.layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 24px 16px 16px;
+  gap: 12px;
+}
+
+.layout-header {
+  text-align: center;
+  color: var(--ink);
+}
+.layout-header h1 {
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 0 rgb(255 255 255 / 0.6);
+}
+.layout-header p {
+  font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+  opacity: 0.85;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 960px;
+  gap: 16px;
+}
+
+.layout-footer {
+  text-align: center;
+  color: var(--cream);
+  opacity: 0.9;
+}
+
+/* ---------- 호랑이 무대 ---------- */
+.tiger-stage {
+  position: relative;
+  width: min(78vw, 46vh, 420px);
+  padding-top: 8%;
+}
+
+/* ---------- 컨트롤 ---------- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 16px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: rgb(255 248 236 / 0.92);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.btn {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.15s, background-color 0.15s, color 0.15s;
+}
+.btn:active { transform: scale(0.95); }
+
+.btn-primary {
+  min-width: 112px;
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: #b83a08; }
+
+.btn-roar {
+  background: var(--ink);
+  color: var(--cream);
+}
+.btn-roar:hover { background: #4a2e18; }
+
+.btn-sound {
+  min-width: 44px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  font-size: 1.1rem;
+}
+.btn-sound[aria-pressed='false'] { opacity: 0.6; }
+
+.move-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+}
+.move-btn {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 2px solid var(--tiger-orange);
+  color: var(--ink);
+  font-weight: 600;
+  background: transparent;
+  transition: background-color 0.15s, color 0.15s;
+}
+.move-btn:hover { background: rgb(240 138 36 / 0.15); }
+.move-btn[aria-pressed='true'] {
+  background: var(--tiger-orange);
+  color: #fff;
+}
+
+.speed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.speed input {
+  width: 120px;
+  accent-color: var(--accent);
+}
+.speed output {
+  min-width: 3.2em;
+  font-variant-numeric: tabular-nums;
+}
+
+.roar-count {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+/* ---------- 반응형 ---------- */
+
+/* 모바일 (~599px) */
+@media (max-width: 599px) {
+  .layout { padding-top: 16px; gap: 8px; }
+  .layout-footer { display: none; }  /* 키보드가 없는 기기 */
+  .controls {
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 16px;
+  }
+  .controls .row {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+  }
+  .controls .row .btn { flex: 1; }
+  .controls .row .btn-sound { flex: 0 0 auto; }
+  .move-group { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .move-btn { padding: 0 6px; font-size: 0.9rem; }
+  .speed input { width: 100%; flex: 1; }
+  .speed { width: 100%; }
+  .jungle { bottom: 18%; }
+}
+
+/* 태블릿 (600px ~ 1023px) */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .tiger-stage { width: min(60vw, 48vh, 420px); }
+  .controls { max-width: 680px; }
+  .controls .row { display: contents; }
+}
+
+/* 데스크탑 (1024px~) */
+@media (min-width: 1024px) {
+  .layout { padding-top: 32px; }
+  .tiger-stage { width: min(40vw, 52vh, 460px); }
+  .controls { max-width: 880px; }
+  .controls .row { display: contents; }
+}
+
+/* 낮은 가로 화면 (휴대폰 가로모드) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .layout-header p,
+  .layout-footer { display: none; }
+  .layout-main { flex-direction: row; align-items: center; justify-content: center; }
+  .tiger-stage { width: min(40vw, 70vh); }
+  .controls { flex-direction: column; max-width: 320px; }
+  .controls .row { display: flex; width: 100%; gap: 8px; }
+  .controls .row .btn { flex: 1; }
+}
+
+/* 터치 기기: hover 효과 제거 */
+@media (hover: none) {
+  .btn-primary:hover { background: var(--accent); }
+  .btn-roar:hover { background: var(--ink); }
+  .move-btn:hover { background: transparent; }
+  .move-btn[aria-pressed='true']:hover { background: var(--tiger-orange); }
+}
